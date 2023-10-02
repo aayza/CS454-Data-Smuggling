@@ -40,6 +40,6 @@ if __name__ == "__main__":
 
     print("Header", header_info)
     print("Image size", img_size)
-    print("Red channel", red_channel)
-    print("Green channel ", green_channel)
-    print("Blue channel", blue_channel)
+    print("Red channel  ", red_channel)
+    print("Green channel", green_channel)
+    print("Blue channel ", blue_channel)
