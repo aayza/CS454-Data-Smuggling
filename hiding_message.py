@@ -3,7 +3,11 @@ from image_operations import extract_bmp_pixels_as_rgb_bin, extract_completely_f
 from PIL import Image
 import time
 
-def hide_message(message_list_of_bin = ["1001101","1000101","1001111", "1010111"], filename = default_filename, n_bits_to_modify = 1):
+
+def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_modify=1):
+    if message_list_of_bin is None:
+        message_list_of_bin = ["1001101", "1000101", "1001111", "1010111"]
+
     str_as_bin = "".join(message_list_of_bin)
     bits_length = len(str_as_bin)
     print(str_as_bin)
