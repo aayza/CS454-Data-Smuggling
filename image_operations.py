@@ -1,5 +1,6 @@
 from PIL import Image
 import time
+from string_operations import *
 
 default_filename = "input_images/test.bmp"
 
@@ -56,8 +57,8 @@ def extract_bmp_channels_bin(filename = default_filename):
     return header, img_size, red_as_binary, green_as_binary, blue_as_binary
 
 # Input is a BMP file
-# Output is tuples of ints, e.g.
-# RGB pixels [[(255, 0, 0), (255, 0, 0), (0, 255, 255), (0, 255, 255)], [(255, 0, 0), (255, 0, 0), (0, 255, 255), (0, 255, 255)], [(255, 0, 255), (255, 0, 255), (0, 255, 0), (0, 255, 0)], [(255, 0, 255), (255, 0, 255), (0, 255, 0), (0, 255, 0)]]
+# Output is triplets of ints, e.g.
+# RGB pixels [[[255, 0, 0], [255, 0, 0], [0, 255, 255], [0, 255, 255]], [[255, 0, 0], [255, 0, 0], [0, 255, 255], [0, 255, 255]], [[255, 0, 255], [255, 0, 255], [0, 255, 0], [0, 255, 0]], [[255, 0, 255], [255, 0, 255], [0, 255, 0], [0, 255, 0]]]
 def extract_bmp_pixels_as_rgb_int(filename = default_filename):
     output = []
 
@@ -70,8 +71,8 @@ def extract_bmp_pixels_as_rgb_int(filename = default_filename):
                 current_row = []
 
                 for x in range(width):
-                    (r, g, b) = img.getpixel((x, y))
-                    current_row.append((r,g, b))
+                    [r, g, b] = img.getpixel((x, y))
+                    current_row.append([r,g, b])
 
                 output.append(current_row)
 
@@ -81,13 +82,13 @@ def extract_bmp_pixels_as_rgb_int(filename = default_filename):
 
 # Input is BMP file
 # Output is tuples of binary, e.g.
-# RGB pixels as bin [[('11111111', '00000000', '00000000'), ('11111111', '00000000', '00000000'), ('00000000', '11111111', '11111111'), ('00000000', '11111111', '11111111')], [('11111111', '00000000', '00000000'), ('11111111', '00000000', '00000000'), ('00000000', '11111111', '11111111'), ('00000000', '11111111', '11111111')], [('11111111', '00000000', '11111111'), ('11111111', '00000000', '11111111'), ('00000000', '11111111', '00000000'), ('00000000', '11111111', '00000000')], [('11111111', '00000000', '11111111'), ('11111111', '00000000', '11111111'), ('00000000', '11111111', '00000000'), ('00000000', '11111111', '00000000')]]
+# RGB pixels as bin [[['11111111', '00000000', '00000000'], ['11111111', '00000000', '00000000'], ['00000000', '11111111', '11111111'], ['00000000', '11111111', '11111111']], [['11111111', '00000000', '00000000'], ['11111111', '00000000', '00000000'], ['00000000', '11111111', '11111111'], ['00000000', '11111111', '11111111']], [['11111111', '00000000', '11111111'], ['11111111', '00000000', '11111111'], ['00000000', '11111111', '00000000'], ['00000000', '11111111', '00000000']], [['11111111', '00000000', '11111111'], ['11111111', '00000000', '11111111'], ['00000000', '11111111', '00000000'], ['00000000', '11111111', '00000000']]]
 def extract_bmp_pixels_as_rgb_bin(filename = default_filename):
     header_info, img_size, output = extract_bmp_pixels_as_rgb_int(filename)
     new_output_as_bin = [
         [
-            tuple(bin(value)[2:].zfill(8) for value in rgb_tuple)
-            for rgb_tuple in row
+            [bin(value)[2:].zfill(8) for value in rgb_triplet]
+            for rgb_triplet in row
         ]
         for row in output
     ]
@@ -123,6 +124,8 @@ if __name__ == "__main__":
 
     header_info, img_size, output = extract_bmp_pixels_as_rgb_bin()
     print("RGB pixels as bin", output)
+
+
 
     # set new colour of pixel 0, 0 of the test image
     with Image.open(default_filename) as img:
