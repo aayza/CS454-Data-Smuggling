@@ -1,13 +1,15 @@
 from string_operations import *
-from image_operations import *
+from image_operations import extract_bmp_pixels_as_rgb_bin, extract_completely_flatten_bmp_pixels, default_filename
+from PIL import Image
+import time
 
-def hide_message(message_list_of_bin = ["01000001","01000010","01000011"], filename = default_filename, n_bits_to_modify = 1):
+def hide_message(message_list_of_bin = ["1001101","1000101","1001111", "1010111"], filename = default_filename, n_bits_to_modify = 1):
     str_as_bin = "".join(message_list_of_bin)
     bits_length = len(str_as_bin)
     print(str_as_bin)
     current_bit_index = 0
 
-    header_info, img_size, flat_pixel_values = extract_completely_flatten_bmp_pixels()
+    header_info, img_size, flat_pixel_values = extract_completely_flatten_bmp_pixels(filename)
     width = img_size[0]
     height = img_size[1]
     print(len(flat_pixel_values), flat_pixel_values)
@@ -18,49 +20,46 @@ def hide_message(message_list_of_bin = ["01000001","01000010","01000011"], filen
         return
 
     # Modify your flat pack here
-    for x in flat_pixel_values:
-        if current_bit_index >= bits_length:
-            break;
-
+    for i in range(len(flat_pixel_values)):
         if n_bits_to_modify >= 1:
             if str_as_bin[current_bit_index] == '1':
-                x = x | (1 << 1)
+                flat_pixel_values[i] = flat_pixel_values[i] | (1 << 1)
             else:
-                x = x & ~(1 << 1)
+                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 1)
 
             current_bit_index = current_bit_index + 1
             if current_bit_index >= bits_length:
-                break;
+                break
 
         if n_bits_to_modify >= 2:
             if str_as_bin[current_bit_index] == '1':
-                x = x | (1 << 2)
+                flat_pixel_values[i] = flat_pixel_values[i] | (1 << 2)
             else:
-                x = x & ~(1 << 2)
+                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 2)
 
             current_bit_index = current_bit_index + 1
             if current_bit_index >= bits_length:
-                break;
+                break
 
         if n_bits_to_modify >= 3:
             if str_as_bin[current_bit_index] == '1':
-                x = x | (1 << 3)
+                flat_pixel_values[i] = flat_pixel_values[i] | (1 << 3)
             else:
-                x = x & ~(1 << 3)
+                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 3)
 
             current_bit_index = current_bit_index + 1
             if current_bit_index >= bits_length:
-                break;
+                break
 
         if n_bits_to_modify >= 4:
             if str_as_bin[current_bit_index] == '1':
-                x = x | (1 << 4)
+                flat_pixel_values[i] = flat_pixel_values[i] | (1 << 4)
             else:
-                x = x & ~(1 << 4)
+                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 4)
 
             current_bit_index = current_bit_index + 1
             if current_bit_index >= bits_length:
-                break;
+                break
 
     print(flat_pixel_values)
 
@@ -74,6 +73,19 @@ def hide_message(message_list_of_bin = ["01000001","01000010","01000011"], filen
 
     # Show or save the image
     new_image.show()
+    output_filename = "output_images/" + str(int(time.time())) + "_output_test.bmp"
+    new_image.save(output_filename)
+    return output_filename
+
 
 if __name__ == "__main__":
-    hide_message()
+    new_file = hide_message()
+    print(new_file)
+    print(extract_bmp_pixels_as_rgb_bin(new_file))
+
+    message = "CAT"
+    message_in_bin = string_to_binary(message)
+
+    second_file = hide_message(message_in_bin)
+    print(second_file)
+    print(extract_bmp_pixels_as_rgb_bin(second_file))
