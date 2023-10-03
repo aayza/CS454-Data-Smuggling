@@ -31,8 +31,6 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
             else:
                 flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 0)
 
-            print(flat_pixel_values[i])
-
             current_bit_index = current_bit_index + 1
             if current_bit_index >= bits_length:
                 break
