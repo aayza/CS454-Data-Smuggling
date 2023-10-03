@@ -33,6 +33,15 @@ def extract_bmp_channels_ints(filename = default_filename):
     except Exception as e:
         return str(e)
 
+def extract_bmp_channels_bin(filename = default_filename):
+    header, img_size, red_channel, green_channel, blue_channel = extract_bmp_channels_ints(filename)
+
+    red_as_binary = [[bin(num)[2:].zfill(8) for num in sublistrow] for sublistrow in red_channel]
+    green_as_binary = [[bin(num)[2:].zfill(8) for num in sublistrow] for sublistrow in green_channel]
+    blue_as_binary = [[bin(num)[2:].zfill(8) for num in sublistrow] for sublistrow in green_channel]
+
+    return header, img_size, red_as_binary, green_as_binary, blue_as_binary
+
 
 def extract_bmp_pixels_as_rgb_int(filename = default_filename):
     output = []
@@ -84,9 +93,11 @@ if __name__ == "__main__":
     print("Blue channel ", blue_channel)
 
     # As binary strings
-    red_as_binary = [[bin(num)[2:] for num in sublistrow] for sublistrow in red_channel]
-    green_as_binary = [[bin(num)[2:] for num in sublistrow] for sublistrow in green_channel]
-    blue_as_binary = [[bin(num)[2:] for num in sublistrow] for sublistrow in green_channel]
+    # red_as_binary = [[bin(num)[2:] for num in sublistrow] for sublistrow in red_channel]
+    # green_as_binary = [[bin(num)[2:] for num in sublistrow] for sublistrow in green_channel]
+    # blue_as_binary = [[bin(num)[2:] for num in sublistrow] for sublistrow in green_channel]
+
+    header_info, img_size, red_as_binary, green_as_binary, blue_as_binary = extract_bmp_channels_bin()
     print("Red", red_as_binary)
     print("Green", green_as_binary)
     print("Blue", blue_as_binary)
@@ -105,8 +116,3 @@ if __name__ == "__main__":
         modified_image = img.copy()
         set_pixel_colour(modified_image, 0, 0, (0, 0, 255))
         modified_image.save("output_images/" + str(int(time.time())) + "_output_test.bmp")
-
-        [
-            [(255, 0, 0), (255, 0, 0), (0, 255, 255), (0, 255, 255)],
-            [(255, 0, 0), (255, 0, 0), (0, 255, 255), (0, 255, 255)]
-        ]
