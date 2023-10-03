@@ -57,7 +57,7 @@ def extract_bmp_channels_bin(filename = default_filename):
     return header, img_size, red_as_binary, green_as_binary, blue_as_binary
 
 # Input is a BMP file
-# Output is triplets of ints, e.g.
+# Output is triplets of ints in a matrix form, e.g.
 # RGB pixels [[[255, 0, 0], [255, 0, 0], [0, 255, 255], [0, 255, 255]], [[255, 0, 0], [255, 0, 0], [0, 255, 255], [0, 255, 255]], [[255, 0, 255], [255, 0, 255], [0, 255, 0], [0, 255, 0]], [[255, 0, 255], [255, 0, 255], [0, 255, 0], [0, 255, 0]]]
 def extract_bmp_pixels_as_rgb_int(filename = default_filename):
     output = []
@@ -94,6 +94,46 @@ def extract_bmp_pixels_as_rgb_bin(filename = default_filename):
     ]
     return header_info, img_size, new_output_as_bin
 
+
+def extract_and_flatten_bmp_pixels_as_rgb_int_triplets(filename = default_filename):
+    output = []
+
+    try:
+        with Image.open(filename) as img:
+            header = img.info
+            width, height = img.size
+            # iterating through from top row and across
+            for y in range(height):
+
+                for x in range(width):
+                    [r, g, b] = img.getpixel((x, y))
+                    output.append([r, g, b])
+
+            return header, img.size, output
+    except Exception as e:
+        return str(e)
+
+
+def extract_completely_flatten_bmp_pixels(filename = default_filename):
+    output = []
+
+    try:
+        with Image.open(filename) as img:
+            header = img.info
+            width, height = img.size
+            # iterating through from top row and across
+            for y in range(height):
+
+                for x in range(width):
+                    r, g, b = img.getpixel((x, y))
+                    output.append(r)
+                    output.append(g)
+                    output.append(b)
+
+            return header, img.size, output
+    except Exception as e:
+        return str(e)
+
 # Helper method for encoding, image must be a reference to an image copy
 # new_colour is a triplet tuple, e.g. (255, 0, 0)
 def set_pixel_colour(image, x, y, new_colour):
@@ -125,7 +165,8 @@ if __name__ == "__main__":
     header_info, img_size, output = extract_bmp_pixels_as_rgb_bin()
     print("RGB pixels as bin", output)
 
-
+    print("flat pack", extract_and_flatten_bmp_pixels_as_rgb_int_triplets())
+    print("completely flat pack", extract_completely_flatten_bmp_pixels())
 
     # set new colour of pixel 0, 0 of the test image
     with Image.open(default_filename) as img:
