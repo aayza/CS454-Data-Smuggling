@@ -55,7 +55,7 @@ def extract_bmp_pixels_as_rgb(filename = default_filename):
         return str(e)
 
 # Helper method for encoding, image must be a reference to an image copy
-# new_colour is a triple tuple, e.g. (255, 0, 0)
+# new_colour is a triplet tuple, e.g. (255, 0, 0)
 def set_pixel_colour(image, x, y, new_colour):
     try:
         image.putpixel((x,y), new_colour)
