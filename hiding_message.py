@@ -18,8 +18,51 @@ def hide_message(message_list_of_bin = ["01000001","01000010","01000011"], filen
         return
 
     # Modify your flat pack here
+    for x in flat_pixel_values:
+        if current_bit_index >= bits_length:
+            break;
 
+        if n_bits_to_modify >= 1:
+            if str_as_bin[current_bit_index] == '1':
+                x = x | (1 << 1)
+            else:
+                x = x & ~(1 << 1)
 
+            current_bit_index = current_bit_index + 1
+            if current_bit_index >= bits_length:
+                break;
+
+        if n_bits_to_modify >= 2:
+            if str_as_bin[current_bit_index] == '1':
+                x = x | (1 << 2)
+            else:
+                x = x & ~(1 << 2)
+
+            current_bit_index = current_bit_index + 1
+            if current_bit_index >= bits_length:
+                break;
+
+        if n_bits_to_modify >= 3:
+            if str_as_bin[current_bit_index] == '1':
+                x = x | (1 << 3)
+            else:
+                x = x & ~(1 << 3)
+
+            current_bit_index = current_bit_index + 1
+            if current_bit_index >= bits_length:
+                break;
+
+        if n_bits_to_modify >= 4:
+            if str_as_bin[current_bit_index] == '1':
+                x = x | (1 << 4)
+            else:
+                x = x & ~(1 << 4)
+
+            current_bit_index = current_bit_index + 1
+            if current_bit_index >= bits_length:
+                break;
+
+    print(flat_pixel_values)
 
     # save your flat pack to an image
     new_image = Image.new("RGB", img_size)
