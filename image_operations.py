@@ -1,5 +1,5 @@
 from PIL import Image
-
+import datetime, time
 
 default_filename = "input_images/test.bmp"
 
@@ -33,6 +33,13 @@ def extract_bmp_channels_ints(filename = default_filename):
     except Exception as e:
         return str(e)
 
+# Helper method for encoding, image must be a reference to an image copy
+# new_colour is a triple tuple, e.g. (255, 0, 0)
+def set_pixel_colour(image, x, y, new_colour):
+    try:
+        image.putpixel((x,y), new_colour)
+    except Exception as e:
+        return str(e)
 
 if __name__ == "__main__":
     header_info, img_size, red_channel, green_channel, blue_channel = extract_bmp_channels_ints()
@@ -50,3 +57,9 @@ if __name__ == "__main__":
     print("Red", red_as_binary)
     print("Green", green_as_binary)
     print("Blue", blue_as_binary)
+
+    # set new colour of pixel 0, 0 of the test image
+    with Image.open(default_filename) as img:
+        modified_image = img.copy()
+        set_pixel_colour(modified_image, 0, 0, (0, 0, 255))
+        modified_image.save("output_images/" + str(int(time.time())) + "_output_test.bmp")
