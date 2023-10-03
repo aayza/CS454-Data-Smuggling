@@ -1,3 +1,5 @@
+# Input for this def should be a string, e.g. "ABC"
+# Output will be list of ASCII characters in binary form, e.g. ["01000001","01000010","01000011"]
 def string_to_binary(input_string):
     output_array = []
 
@@ -12,6 +14,8 @@ def string_to_binary(input_string):
 
     return output_array
 
+# Input for this def should be a list of ASCII characters in binary form, e.g. ["01000001","01000010","01000011"]
+# Output will be a normal string, e.g. "ABC"
 def binary_to_string(input_binary_string_list):
     result_str = ""
 

@@ -3,6 +3,12 @@ import time
 
 default_filename = "input_images/test.bmp"
 
+# Input is a BMP, output will be 5 variables. E.g.
+# Header {'dpi': (299.9992380004115, 299.9992380004115), 'compression': 0}
+# Image size (4, 4)
+# Red channel   [[255, 255, 0, 0], [255, 255, 0, 0], [255, 255, 0, 0], [255, 255, 0, 0]]
+# Green channel [[0, 0, 255, 255], [0, 0, 255, 255], [0, 0, 255, 255], [0, 0, 255, 255]]
+# Blue channel  [[0, 0, 255, 255], [0, 0, 255, 255], [255, 255, 0, 0], [255, 255, 0, 0]]
 def extract_bmp_channels_ints(filename = default_filename):
     red_channel = []
     green_channel = []
@@ -33,6 +39,13 @@ def extract_bmp_channels_ints(filename = default_filename):
     except Exception as e:
         return str(e)
 
+# Input is a BMP file
+# Output is e.g.
+# Header {'dpi': (299.9992380004115, 299.9992380004115), 'compression': 0}
+# Image size (4, 4)
+# Red [['11111111', '11111111', '00000000', '00000000'], ['11111111', '11111111', '00000000', '00000000'], ['11111111', '11111111', '00000000', '00000000'], ['11111111', '11111111', '00000000', '00000000']]
+# Green [['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111']]
+# Blue [['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111']]
 def extract_bmp_channels_bin(filename = default_filename):
     header, img_size, red_channel, green_channel, blue_channel = extract_bmp_channels_ints(filename)
 
@@ -42,7 +55,9 @@ def extract_bmp_channels_bin(filename = default_filename):
 
     return header, img_size, red_as_binary, green_as_binary, blue_as_binary
 
-
+# Input is a BMP file
+# Output is tuples of ints, e.g.
+# RGB pixels [[(255, 0, 0), (255, 0, 0), (0, 255, 255), (0, 255, 255)], [(255, 0, 0), (255, 0, 0), (0, 255, 255), (0, 255, 255)], [(255, 0, 255), (255, 0, 255), (0, 255, 0), (0, 255, 0)], [(255, 0, 255), (255, 0, 255), (0, 255, 0), (0, 255, 0)]]
 def extract_bmp_pixels_as_rgb_int(filename = default_filename):
     output = []
 
@@ -64,6 +79,9 @@ def extract_bmp_pixels_as_rgb_int(filename = default_filename):
     except Exception as e:
         return str(e)
 
+# Input is BMP file
+# Output is tuples of binary, e.g.
+# RGB pixels as bin [[('11111111', '00000000', '00000000'), ('11111111', '00000000', '00000000'), ('00000000', '11111111', '11111111'), ('00000000', '11111111', '11111111')], [('11111111', '00000000', '00000000'), ('11111111', '00000000', '00000000'), ('00000000', '11111111', '11111111'), ('00000000', '11111111', '11111111')], [('11111111', '00000000', '11111111'), ('11111111', '00000000', '11111111'), ('00000000', '11111111', '00000000'), ('00000000', '11111111', '00000000')], [('11111111', '00000000', '11111111'), ('11111111', '00000000', '11111111'), ('00000000', '11111111', '00000000'), ('00000000', '11111111', '00000000')]]
 def extract_bmp_pixels_as_rgb_bin(filename = default_filename):
     header_info, img_size, output = extract_bmp_pixels_as_rgb_int(filename)
     new_output_as_bin = [
@@ -91,11 +109,6 @@ if __name__ == "__main__":
     print("Red channel  ", red_channel)
     print("Green channel", green_channel)
     print("Blue channel ", blue_channel)
-
-    # As binary strings
-    # red_as_binary = [[bin(num)[2:] for num in sublistrow] for sublistrow in red_channel]
-    # green_as_binary = [[bin(num)[2:] for num in sublistrow] for sublistrow in green_channel]
-    # blue_as_binary = [[bin(num)[2:] for num in sublistrow] for sublistrow in green_channel]
 
     header_info, img_size, red_as_binary, green_as_binary, blue_as_binary = extract_bmp_channels_bin()
     print("Red", red_as_binary)
