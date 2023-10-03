@@ -27,6 +27,18 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
     for i in range(len(flat_pixel_values)):
         if n_bits_to_modify >= 1:
             if str_as_bin[current_bit_index] == '1':
+                flat_pixel_values[i] = flat_pixel_values[i] | (1 << 0)
+            else:
+                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 0)
+
+            print(flat_pixel_values[i])
+
+            current_bit_index = current_bit_index + 1
+            if current_bit_index >= bits_length:
+                break
+
+        if n_bits_to_modify >= 2:
+            if str_as_bin[current_bit_index] == '1':
                 flat_pixel_values[i] = flat_pixel_values[i] | (1 << 1)
             else:
                 flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 1)
@@ -35,7 +47,7 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
             if current_bit_index >= bits_length:
                 break
 
-        if n_bits_to_modify >= 2:
+        if n_bits_to_modify >= 3:
             if str_as_bin[current_bit_index] == '1':
                 flat_pixel_values[i] = flat_pixel_values[i] | (1 << 2)
             else:
@@ -45,21 +57,11 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
             if current_bit_index >= bits_length:
                 break
 
-        if n_bits_to_modify >= 3:
+        if n_bits_to_modify >= 4:
             if str_as_bin[current_bit_index] == '1':
                 flat_pixel_values[i] = flat_pixel_values[i] | (1 << 3)
             else:
                 flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 3)
-
-            current_bit_index = current_bit_index + 1
-            if current_bit_index >= bits_length:
-                break
-
-        if n_bits_to_modify >= 4:
-            if str_as_bin[current_bit_index] == '1':
-                flat_pixel_values[i] = flat_pixel_values[i] | (1 << 4)
-            else:
-                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 4)
 
             current_bit_index = current_bit_index + 1
             if current_bit_index >= bits_length:
@@ -90,6 +92,6 @@ if __name__ == "__main__":
     message = "CAT"
     message_in_bin = string_to_binary(message)
 
-    second_file = hide_message(message_in_bin, default_filename, 2)
+    second_file = hide_message(message_in_bin, default_filename, 4)
     print(second_file)
     print(extract_bmp_pixels_as_rgb_bin(second_file))
