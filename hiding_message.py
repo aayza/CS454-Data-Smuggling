@@ -90,6 +90,6 @@ if __name__ == "__main__":
     message = "CAT"
     message_in_bin = string_to_binary(message)
 
-    second_file = hide_message(message_in_bin)
+    second_file = hide_message(message_in_bin, default_filename, 2)
     print(second_file)
     print(extract_bmp_pixels_as_rgb_bin(second_file))
