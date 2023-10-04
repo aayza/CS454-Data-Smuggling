@@ -42,12 +42,12 @@ def ints_list_to_str(input_int_list):
 
 
 if __name__ == '__main__':
-    input_str = "Hello, World !"
+    input_str = "Hello, World!"
     binary_str = string_to_binary(input_str)
     print(binary_str)
     print(binary_to_string(binary_str))
 
     print(string_to_char_ints("ABC"))
-    print(ints_list_to_str([65,66,67]))
+    print(ints_list_to_str([65, 66, 67]))
 
 
