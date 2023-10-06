@@ -67,7 +67,7 @@ class TestBMPProcessingFunctions(unittest.TestCase):
     def test_extract_and_flatten_bmp_pixels_as_rgb_int_triplets(self):
         header, img_size, flattened_pixels = extract_and_flatten_bmp_pixels_as_rgb_int_triplets(self.test_image)
         self.assertEqual(img_size, (4, 4))
-        self.assertEqual(len(flattened_pixels), 48)  # 4x4x3 = 48
+        self.assertEqual(len(flattened_pixels), 16)  # 4x4 = 16
 
 
     def test_extract_completely_flatten_bmp_pixels(self):
