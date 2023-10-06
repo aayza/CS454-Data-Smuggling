@@ -107,7 +107,8 @@ def extract_and_flatten_bmp_pixels_as_rgb_int_triplets(filename = default_filena
 
                 for x in range(width):
                     [r, g, b] = img.getpixel((x, y))
-                    output.append([r, g, b])
+                    output.extend([r, g, b])
+                    # QUESTION should this be output.extend not append from checking?
 
             return header, img.size, output
     except Exception as e:
