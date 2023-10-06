@@ -34,7 +34,6 @@ class TestStringConversionFunctions(unittest.TestCase):
 
 # Image operations unit tests
 
-# QUESTION how shoudl i be testing header? like i've just tested if its an instance or should i not be testing it at all?
 class TestBMPProcessingFunctions(unittest.TestCase):
 
     def setUp(self):
@@ -70,7 +69,6 @@ class TestBMPProcessingFunctions(unittest.TestCase):
         self.assertEqual(img_size, (4, 4))
         self.assertEqual(len(flattened_pixels), 48)  # 4x4x3 = 48
 
-        # QUESTION 4x4 pixels, and each pixel has 3 RGB values so length should be 48? idk
 
     def test_extract_completely_flatten_bmp_pixels(self):
         header, img_size, flattened_pixels = extract_completely_flatten_bmp_pixels(self.test_image)
@@ -108,7 +106,6 @@ class TestHideMessageFunction(unittest.TestCase):
         self.assertEqual(img_size, (4, 4))
         self.assertEqual(len(rgb_pixels_as_bin), 4)
 
-    # QUESTION - not entirely sure about this function?
     def test_hide_message_with_message(self):
         message = "CAT"
         message_in_bin = string_to_binary(message)
