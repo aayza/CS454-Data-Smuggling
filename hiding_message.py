@@ -32,6 +32,8 @@ def transform_image_with_message(flat_pixel_values, str_as_bin, n_bits_to_modify
     return flat_pixel_values
 
 # The main method
+# Input is an encoded string using the string_to_bits() method in string operations, filename and number of LSBs to modify
+# Output is the new filename
 def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_modify=1):
     if message_list_of_bin is None:
         message_list_of_bin = ["01001101", "01000101", "01001111", "01010111"] # default message
