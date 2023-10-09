@@ -28,7 +28,7 @@ def transform_image_with_message(flat_pixel_values, str_as_bin, n_bits_to_modify
         if break_outer:
             break
 
-    print("Values transformed to", flat_pixel_values)
+    print(f"Using {n_bits_to_modify} least significant bits, values transformed to:\n", flat_pixel_values)
     return flat_pixel_values
 
 # The main method
