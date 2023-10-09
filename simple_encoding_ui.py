@@ -6,8 +6,14 @@ folder_path = "input_images"
 
 def encode_message():
     # Step 1 Enter a string message (don't go nuts, keep it simple)
-    user_input = input("Type in a string message.")
-    print(f"Your message is {user_input}")
+
+    while True:
+        user_input = input("Type in a string message.")
+        if user_input.strip():
+            print(f"Your message is {user_input}")
+            break
+        else:
+            print("Try again.")
 
     # Step 2 Select the number of bits to modify per byte
     while True:
