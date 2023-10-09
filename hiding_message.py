@@ -28,7 +28,7 @@ def transform_image_with_message(flat_pixel_values, str_as_bin, n_bits_to_modify
         if break_outer:
             break
 
-    print(flat_pixel_values)
+    print("Values transformed to", flat_pixel_values)
     return flat_pixel_values
 
 # The main method
@@ -38,13 +38,13 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
 
     str_as_bin = "".join(message_list_of_bin)
     bits_length = len(str_as_bin)
-    print(str_as_bin)
+    print(f"Your message as a continuous string of 1s and 0s is: {str_as_bin}")
 
 
     header_info, img_size, flat_pixel_values = extract_completely_flatten_bmp_pixels(filename)
     width = img_size[0]
     height = img_size[1]
-    print(len(flat_pixel_values), flat_pixel_values)
+    print("RGB values before", flat_pixel_values)
 
     # validate number of bits to modify and lengths will fit
     if n_bits_to_modify > 4 or n_bits_to_modify < 1:
@@ -70,7 +70,7 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
     new_image.show()
     output_filename = "output_images/" + str(int(time.time())) + "_output_test.bmp"
     new_image.save(output_filename)
-    print(extract_bmp_pixels_as_rgb_bin(output_filename))
+    print("Image details after", extract_bmp_pixels_as_rgb_bin(output_filename))
     return output_filename
 
 # Test main
