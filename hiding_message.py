@@ -70,6 +70,7 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
     new_image.show()
     output_filename = "output_images/" + str(int(time.time())) + "_output_test.bmp"
     new_image.save(output_filename)
+    print(extract_bmp_pixels_as_rgb_bin(output_filename))
     return output_filename
 
 # Test main
