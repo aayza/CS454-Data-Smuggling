@@ -3,7 +3,35 @@ from image_operations import extract_bmp_pixels_as_rgb_bin, extract_completely_f
 from PIL import Image
 import time
 
+# Helper method for manipulating bits
+# Inputs are e.g. flat_pixel_values [255, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 255, 0, 255, 0, 0, 255, 0, 255, 0, 255, 255, 0, 255, 0, 255, 0, 0, 255, 0]
+# str_as_bin e.g. "010000110100000101010100"
+# n_bits_to_modify value between 1-4
+# Output would be a list [242, 12, 2, 248, 10, 2, 0, 255, 255, 0, 255, 255, 255, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 255, 0, 255, 0, 0, 255, 0, 255, 0, 255, 255, 0, 255, 0, 255, 0, 0, 255, 0]
+def transform_image_with_message(flat_pixel_values, str_as_bin, n_bits_to_modify):
+    bits_length = len(str_as_bin)
+    break_outer = False
+    current_bit_index_of_msg_bin = 0
 
+    for i in range(len(flat_pixel_values)):
+        for j in range(n_bits_to_modify):
+            if str_as_bin[current_bit_index_of_msg_bin] == '1':
+                flat_pixel_values[i] = flat_pixel_values[i] | (1 << j)
+            else:
+                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << j)
+
+            current_bit_index_of_msg_bin = current_bit_index_of_msg_bin + 1
+            if current_bit_index_of_msg_bin >= bits_length:
+                break_outer = True
+                break
+
+        if break_outer:
+            break
+
+    print(flat_pixel_values)
+    return flat_pixel_values
+
+# The main method
 def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_modify=1):
     if message_list_of_bin is None:
         message_list_of_bin = ["01001101", "01000101", "01001111", "01010111"] # default message
@@ -11,7 +39,7 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
     str_as_bin = "".join(message_list_of_bin)
     bits_length = len(str_as_bin)
     print(str_as_bin)
-    current_bit_index = 0
+
 
     header_info, img_size, flat_pixel_values = extract_completely_flatten_bmp_pixels(filename)
     width = img_size[0]
@@ -19,57 +47,16 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
     print(len(flat_pixel_values), flat_pixel_values)
 
     # validate number of bits to modify and lengths will fit
-    if n_bits_to_modify > 4:
-        print("Maximum of 4 least significant bits is supported to avoid too much image distortion.")
+    if n_bits_to_modify > 4 or n_bits_to_modify < 1:
+        print("Maximum of 4 least significant bits is supported to avoid too much image distortion. Also a minimum of 1.")
         return
 
     if bits_length > n_bits_to_modify * len(flat_pixel_values):
         print(f"You have {bits_length} to encode but only {n_bits_to_modify * len(flat_pixel_values)} available.")
         return
 
-    # Modify your flat pack of pixel values here (TODO: turn into loop)
-    for i in range(len(flat_pixel_values)):
-        if n_bits_to_modify >= 1:
-            if str_as_bin[current_bit_index] == '1':
-                flat_pixel_values[i] = flat_pixel_values[i] | (1 << 0)
-            else:
-                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 0)
-
-            current_bit_index = current_bit_index + 1
-            if current_bit_index >= bits_length:
-                break
-
-        if n_bits_to_modify >= 2:
-            if str_as_bin[current_bit_index] == '1':
-                flat_pixel_values[i] = flat_pixel_values[i] | (1 << 1)
-            else:
-                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 1)
-
-            current_bit_index = current_bit_index + 1
-            if current_bit_index >= bits_length:
-                break
-
-        if n_bits_to_modify >= 3:
-            if str_as_bin[current_bit_index] == '1':
-                flat_pixel_values[i] = flat_pixel_values[i] | (1 << 2)
-            else:
-                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 2)
-
-            current_bit_index = current_bit_index + 1
-            if current_bit_index >= bits_length:
-                break
-
-        if n_bits_to_modify >= 4:
-            if str_as_bin[current_bit_index] == '1':
-                flat_pixel_values[i] = flat_pixel_values[i] | (1 << 3)
-            else:
-                flat_pixel_values[i] = flat_pixel_values[i] & ~(1 << 3)
-
-            current_bit_index = current_bit_index + 1
-            if current_bit_index >= bits_length:
-                break
-
-    print(flat_pixel_values)
+    # Modify your flat pack of pixel values here
+    flat_pixel_values = transform_image_with_message(flat_pixel_values, str_as_bin, n_bits_to_modify)
 
     # save your flat pack of image values to an image
     new_image = Image.new("RGB", img_size)
@@ -85,7 +72,7 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
     new_image.save(output_filename)
     return output_filename
 
-
+# Test main
 if __name__ == "__main__":
     # Create a image using defaults
     new_file = hide_message()

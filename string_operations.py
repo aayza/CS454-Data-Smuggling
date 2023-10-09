@@ -34,13 +34,14 @@ def string_to_char_ints(input_string):
         output.append(ord(c))
     return output
 
-
+# Input is e.g. [72, 101, 108, 108, 111]
+# Output is "Hello"
 def ints_list_to_str(input_int_list):
     char_list = [chr(int_value) for int_value in input_int_list]
     resulting_string = ''.join(char_list)
     return resulting_string
 
-
+# Test main
 if __name__ == '__main__':
     input_str = "Hello, World!"
     binary_str = string_to_binary(input_str)
