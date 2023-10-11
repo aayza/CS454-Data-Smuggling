@@ -1,22 +1,24 @@
+from consts import EXIT_STRING
 from string_operations import *
-from image_operations import extract_bmp_pixels_as_rgb_bin, extract_completely_flatten_bmp_pixels, default_filename
+from image_operations import extract_completely_flatten_bmp_pixels, default_filename
 from PIL import Image
 import time
+
+default_message = ["01001101", "01000101", "01001111", "01010111"]
 
 
 def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_modify=1):
     if message_list_of_bin is None:
-        message_list_of_bin = ["01001101", "01000101", "01001111", "01010111"] # default message
+        message_list_of_bin = default_message
+
+    message_list_of_bin += string_to_binary(EXIT_STRING)
 
     str_as_bin = "".join(message_list_of_bin)
     bits_length = len(str_as_bin)
-    print(str_as_bin)
-    current_bit_index = 0
 
     header_info, img_size, flat_pixel_values = extract_completely_flatten_bmp_pixels(filename)
     width = img_size[0]
     height = img_size[1]
-    print(len(flat_pixel_values), flat_pixel_values)
 
     # validate number of bits to modify and lengths will fit
     if n_bits_to_modify > 4:
@@ -26,6 +28,8 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
     if bits_length > n_bits_to_modify * len(flat_pixel_values):
         print(f"You have {bits_length} to encode but only {n_bits_to_modify * len(flat_pixel_values)} available.")
         return
+
+    current_bit_index = 0
 
     # Modify your flat pack of pixel values here (TODO: turn into loop)
     for i in range(len(flat_pixel_values)):
@@ -80,7 +84,8 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
             new_image.putpixel((x, y), tuple(rgb_values))  # Convert the list to a tuple
 
     # Show and save the image
-    new_image.show()
+    # new_image.show()
+    # TODO - mkdir output_images/ or commit empty directory
     output_filename = "output_images/" + str(int(time.time())) + "_output_test.bmp"
     new_image.save(output_filename)
     return output_filename
@@ -89,13 +94,9 @@ def hide_message(message_list_of_bin=None, filename=default_filename, n_bits_to_
 if __name__ == "__main__":
     # Create a image using defaults
     new_file = hide_message()
-    print(new_file)
-    print(extract_bmp_pixels_as_rgb_bin(new_file))
 
     # Specify a custom message
     message = "CAT"
     message_in_bin = string_to_binary(message)
 
-    second_file = hide_message(message_in_bin, default_filename, 4)
-    print(second_file)
-    print(extract_bmp_pixels_as_rgb_bin(second_file))
+    second_file = hide_message(message_in_bin, default_filename, 1)
