@@ -4,6 +4,7 @@ from string_operations import string_to_binary
 
 folder_path = "input_images"
 
+
 def encode_message():
     # Step 1 Enter a string message (don't go nuts, keep it simple)
 
@@ -55,5 +56,6 @@ def encode_message():
                 print("Invalid choice. Please enter a valid number.")
         except ValueError:
             print("Invalid input. Please enter a number.")
+
 
 encode_message()

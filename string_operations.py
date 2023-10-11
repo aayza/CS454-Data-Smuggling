@@ -14,6 +14,7 @@ def string_to_binary(input_string):
 
     return output_array
 
+
 # Input for this def should be a list of ASCII characters in binary form, e.g. ["01000001","01000010","01000011"]
 # Output will be a normal string, e.g. "ABC"
 def binary_to_string(input_binary_string_list):
@@ -26,6 +27,7 @@ def binary_to_string(input_binary_string_list):
 
     return result_str
 
+
 # Input for this def should be a string, e.g. "ABC"
 # Output will be list of ASCII characters in ints, e.g. [65, 66, 67]
 def string_to_char_ints(input_string):
@@ -34,12 +36,20 @@ def string_to_char_ints(input_string):
         output.append(ord(c))
     return output
 
+
 # Input is e.g. [72, 101, 108, 108, 111]
 # Output is "Hello"
 def ints_list_to_str(input_int_list):
     char_list = [chr(int_value) for int_value in input_int_list]
     resulting_string = ''.join(char_list)
     return resulting_string
+
+
+# Input is a binary string e.g. "010000010010101010101010101010101010..."
+# Output is ["01000001","01000010","01000011"]
+def binary_to_byte_array(binary):
+    return [binary[i:i + 8] for i in range(0, len(binary), 8)]
+
 
 # Test main
 if __name__ == '__main__':
