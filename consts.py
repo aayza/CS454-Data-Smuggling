@@ -1,2 +1,2 @@
 
-EXIT_STRING = '~'
+EXIT_STRING = '~~~'
