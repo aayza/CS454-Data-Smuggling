@@ -129,6 +129,10 @@ def extract_and_flatten_bmp_pixels_as_rgb_int_triplets(filename=default_filename
 # Output is a single flat list of repeating RGB values: [1, 2, 3, 10, 20, 30, 100, 200, 300] etc
 # This method is used
 def extract_completely_flatten_bmp_pixels(filename=default_filename):
+    if not is_24_bit_bmp(filename):
+        print("Only 24-bit BMP is supported.")
+        return
+
     output = []
 
     try:
@@ -148,6 +152,14 @@ def extract_completely_flatten_bmp_pixels(filename=default_filename):
     except Exception as e:
         return str(e)
 
+def is_24_bit_bmp(image_path):
+    try:
+        img = Image.open(image_path)
+        if img.mode == "RGB" and img.info.get("bits") == 24:
+            return True
+        return False
+    except Exception as e:
+        return False
 
 # Helper method for encoding, image must be a reference to an image copy
 # new_colour is a triplet tuple, e.g. (255, 0, 0)
