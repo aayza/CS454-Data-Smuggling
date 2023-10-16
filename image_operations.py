@@ -51,7 +51,7 @@ def extract_bmp_channels_ints(filename=default_filename):
 # Green [['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111']]
 # Blue [['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111'], ['00000000', '00000000', '11111111', '11111111']]
 # Unused method, kept for investigation purposes
-def extract_bmp_channels_bin(filename = default_filename):
+def extract_bmp_channels_bin(filename=default_filename):
     header, img_size, red_channel, green_channel, blue_channel = extract_bmp_channels_ints(filename)
 
     red_as_binary = [[bin(num)[2:].zfill(8) for num in sublistrow] for sublistrow in red_channel]
@@ -65,7 +65,7 @@ def extract_bmp_channels_bin(filename = default_filename):
 # Output is triplets of ints in a matrix form, e.g.
 # RGB pixels [[[255, 0, 0], [255, 0, 0], [0, 255, 255], [0, 255, 255]], [[255, 0, 0], [255, 0, 0], [0, 255, 255], [0, 255, 255]], [[255, 0, 255], [255, 0, 255], [0, 255, 0], [0, 255, 0]], [[255, 0, 255], [255, 0, 255], [0, 255, 0], [0, 255, 0]]]
 # Unused method, kept for investigation purposes
-def extract_bmp_pixels_as_rgb_int(filename = default_filename):
+def extract_bmp_pixels_as_rgb_int(filename=default_filename):
     output = []
 
     try:
@@ -78,7 +78,7 @@ def extract_bmp_pixels_as_rgb_int(filename = default_filename):
 
                 for x in range(width):
                     [r, g, b] = img.getpixel((x, y))
-                    current_row.append([r,g, b])
+                    current_row.append([r, g, b])
 
                 output.append(current_row)
 
@@ -91,7 +91,7 @@ def extract_bmp_pixels_as_rgb_int(filename = default_filename):
 # Output is tuples of binary, e.g.
 # RGB pixels as bin [[['11111111', '00000000', '00000000'], ['11111111', '00000000', '00000000'], ['00000000', '11111111', '11111111'], ['00000000', '11111111', '11111111']], [['11111111', '00000000', '00000000'], ['11111111', '00000000', '00000000'], ['00000000', '11111111', '11111111'], ['00000000', '11111111', '11111111']], [['11111111', '00000000', '11111111'], ['11111111', '00000000', '11111111'], ['00000000', '11111111', '00000000'], ['00000000', '11111111', '00000000']], [['11111111', '00000000', '11111111'], ['11111111', '00000000', '11111111'], ['00000000', '11111111', '00000000'], ['00000000', '11111111', '00000000']]]
 # Unused method, kept for investigation purposes
-def extract_bmp_pixels_as_rgb_bin(filename = default_filename):
+def extract_bmp_pixels_as_rgb_bin(filename=default_filename):
     header_info, img_size, output = extract_bmp_pixels_as_rgb_int(filename)
     new_output_as_bin = [
         [
@@ -106,7 +106,7 @@ def extract_bmp_pixels_as_rgb_bin(filename = default_filename):
 # Input is a bmp file
 # Output is RGB triplets in the following format: [[1, 2, 3], [10, 20, 30], [100, 200, 300]] etc
 # Unused method, kept for investigation purposes
-def extract_and_flatten_bmp_pixels_as_rgb_int_triplets(filename = default_filename):
+def extract_and_flatten_bmp_pixels_as_rgb_int_triplets(filename=default_filename):
     output = []
 
     try:
@@ -128,7 +128,7 @@ def extract_and_flatten_bmp_pixels_as_rgb_int_triplets(filename = default_filena
 # Input is a bmp file
 # Output is a single flat list of repeating RGB values: [1, 2, 3, 10, 20, 30, 100, 200, 300] etc
 # This method is used
-def extract_completely_flatten_bmp_pixels(filename = default_filename):
+def extract_completely_flatten_bmp_pixels(filename=default_filename):
     output = []
 
     try:
@@ -154,7 +154,7 @@ def extract_completely_flatten_bmp_pixels(filename = default_filename):
 # Do not use this, completely obsolete
 def set_pixel_colour(image, x, y, new_colour):
     try:
-        image.putpixel((x,y), new_colour)
+        image.putpixel((x, y), new_colour)
     except Exception as e:
         return str(e)
 

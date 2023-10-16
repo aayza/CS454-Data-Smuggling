@@ -84,6 +84,8 @@ class TestBMPProcessingFunctions(unittest.TestCase):
         self.assertTrue(os.path.exists(output_filename))
         os.remove(output_filename)
 
+        # testing pixels are different
+
 
 # Hiding messages/encoding unit tests
 
@@ -110,14 +112,11 @@ class TestHideMessageFunction(unittest.TestCase):
         message = "CAT"
         message_in_bin = string_to_binary(message)
         output_filename = hide_message(message_in_bin, self.test_image, 4)
-        self.assertTrue(os.path.exists(output_filename))#
+        self.assertTrue(os.path.exists(output_filename))
         header_info, img_size, rgb_pixels_as_bin = extract_bmp_pixels_as_rgb_bin(output_filename)
         self.assertEqual(img_size, (4, 4))
         self.assertEqual(len(rgb_pixels_as_bin), 4)
 
-
-# Finding messages/decoding unit tests
-# TO DO
 
 if __name__ == '__main__':
     unittest.main()
