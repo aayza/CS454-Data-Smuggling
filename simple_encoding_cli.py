@@ -49,8 +49,8 @@ def encode_message():
                 print(f"You selected: {selected_image}")
 
                 # Step 4 Hide the message
-                string_binary = string_to_binary(user_input)
-                hide_message(string_binary, selected_image, n_bits_to_modify)
+                #string_binary = string_to_binary(user_input)
+                hide_message(user_input, selected_image, n_bits_to_modify)
                 break
             else:
                 print("Invalid choice. Please enter a valid number.")
