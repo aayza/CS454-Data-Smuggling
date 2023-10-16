@@ -44,7 +44,11 @@ def hide_message(message="Test", filename=default_filename, n_bits_to_modify=1):
     str_as_bin = "".join(payload_list_of_bin)
     bits_length = len(str_as_bin)
 
-    header_info, img_size, flat_pixel_values = extract_completely_flatten_bmp_pixels(filename)
+    try:
+        header_info, img_size, flat_pixel_values = extract_completely_flatten_bmp_pixels(filename)
+    except ValueError as e:
+        print("Image data extraction error:", str(e))
+
     width = img_size[0]
     height = img_size[1]
     print("RGB values before", flat_pixel_values)
