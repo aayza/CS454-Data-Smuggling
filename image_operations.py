@@ -148,7 +148,6 @@ def extract_completely_flatten_bmp_pixels(filename=default_filename):
     except Exception as e:
         return str(e)
 
-
 # Helper method for encoding, image must be a reference to an image copy
 # new_colour is a triplet tuple, e.g. (255, 0, 0)
 # Do not use this, completely obsolete
