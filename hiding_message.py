@@ -46,6 +46,8 @@ def hide_message(message="Test", filename=default_filename, n_bits_to_modify=1):
 
     try:
         header_info, img_size, flat_pixel_values = extract_completely_flatten_bmp_pixels(filename)
+    except Exception as e:
+        return str(e)
     except ValueError as e:
         print("Image data extraction error:", str(e), "Possibly not 24 bit bmp")
 

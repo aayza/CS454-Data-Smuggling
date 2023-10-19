@@ -4,7 +4,7 @@ def string_to_binary(input_string):
     output_array = []
 
     for char in input_string:
-        binary_char = bin(ord(char))[2:] # Get the ASCII value of the character and convert it to binary with 'bin()'
+        binary_char = bin(ord(char))[2:]  # Get the ASCII value of the character and convert it to binary with 'bin()'
 
         # Ensure that each binary representation is 8 bits long by adding leading zeros if needed
         while len(binary_char) < 8:
@@ -13,6 +13,23 @@ def string_to_binary(input_string):
         output_array.append(binary_char)
 
     return output_array
+
+
+def binaryString_to_string(binary_string):
+    binary_string = str(binary_string)
+    # Remove any characters that are not '1' or '0'
+    binary_string = ''.join(char for char in binary_string if char in '01')
+
+    # Split the binary string into 8-bit chunks
+    binary_chunks = [binary_string[i:i + 8] for i in range(0, len(binary_string), 8)]
+
+    # Convert each 8-bit binary chunk to its decimal representation and then to a character
+    text_characters = [chr(int(chunk, 2)) for chunk in binary_chunks]
+
+    # Join the characters to form the resulting string
+    result_string = ''.join(text_characters)
+
+    return result_string
 
 
 # Input for this def should be a list of ASCII characters in binary form, e.g. ["01000001","01000010","01000011"]
@@ -60,5 +77,3 @@ if __name__ == '__main__':
 
     print(string_to_char_ints("ABC"))
     print(ints_list_to_str([65, 66, 67]))
-
-
