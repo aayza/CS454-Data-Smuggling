@@ -2,14 +2,16 @@ import os
 
 from consts import EXIT_STRING
 from image_operations import extract_bmp_pixels_as_rgb_bin
-from string_operations import binary_to_string, binary_to_byte_array
+from string_operations import binary_to_string, binary_to_byte_array, binaryString_to_string
 
 
 # Finds the encoded message within file provided as param.
 # This supports any message that is encoded using either 1 2 3 or 4 least significant bit algorithm.
 def find_message(file):
-    if not os.path.isfile(f):
-        return f"File {file} not found. Could not decode message"
+    if file is None or not os.path.isfile(file):
+        error_message = "File not found. Could not decode message"
+        print(error_message)
+        return False
 
     # Extract file information for decoding
     header_info, img_size, rgb_binary = extract_bmp_pixels_as_rgb_bin(file)
@@ -48,11 +50,10 @@ def find_message(file):
         # Get message as bytes
         message_bytes = binary_to_byte_array(message)
         # Get message as string
-        message_string = binary_to_string(message_bytes)
+        message_string = binaryString_to_string(message_bytes)
         # Check message contains exit string - meaning it is the message we are looking for
         if EXIT_STRING in message_string:
             found_message = message_string.split(EXIT_STRING)[0]
-            print(found_message)
             return found_message
 
     # If no potential_messages contain the exit string
