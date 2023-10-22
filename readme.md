@@ -10,3 +10,4 @@
 
 ## Decoding the message
 
+1. Simply run `finding_message.py`, this will go through each image in the output_images folder and look for hidden messages
