@@ -3,6 +3,7 @@ from string_operations import *
 from image_operations import extract_bmp_pixels_as_rgb_bin, extract_completely_flatten_bmp_pixels, default_filename
 from PIL import Image
 import time
+import os
 
 
 # Helper method for manipulating bits
@@ -77,8 +78,10 @@ def hide_message(message="Test", filename=default_filename, n_bits_to_modify=1):
             new_image.putpixel((x, y), tuple(rgb_values))  # Convert the list to a tuple
 
     # Save the image
-    # TODO mkdir for output_images
-    output_filename = "output_images/" + str(int(time.time())) + "_output_test.bmp"
+    output_folder = "output_images/"
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+    output_filename = output_folder + str(int(time.time())) + "_output_test.bmp"
     new_image.save(output_filename)
     return output_filename
 
