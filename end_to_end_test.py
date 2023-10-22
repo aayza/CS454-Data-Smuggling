@@ -42,7 +42,7 @@ if __name__ == '__main__':
     encoded_image = encode(message, image_path, bits_to_modify)
     found_message = decode(encoded_image)
     if verification(message, found_message):
-        user_message = "The encoding/decoding successfully worked! \nThe original message \"" + message + "\" was successfully hidden in the image \"" + image_path + " \" and created new image \"" + encoded_image + "\" which was then decoded to find the message \"" + found_message + "\"!"
+        user_message = "The encoding/decoding successfully worked! \n\nThe original message \"" + message + "\" was successfully hidden in the image \"" + image_path + " \" and created new image \"" + encoded_image + "\" which was then decoded to find the message \"" + found_message + "\"!"
     else:
         user_message = "The encoding/decoding did not work :("
     print(user_message)
