@@ -130,7 +130,6 @@ class TestImageOperations(unittest.TestCase):
         self.assertEqual(img_size, (4, 4))
         self.assertEqual(len(flattened_pixels), 48)  # 4x4x3 = 48
 
-        # expected_output = [255, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 0, 255, 0, 0, 255, 0, 255, 0, 255, 0, 0, 255, 0]
         expected_output = [255, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255,
                            255, 255, 0, 255, 255, 0, 255, 0, 255, 0, 0, 255, 0, 255, 0, 255, 255, 0, 255, 0, 255, 0, 0,
                            255, 0]

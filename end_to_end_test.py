@@ -1,12 +1,12 @@
-# call ebcidung
+# import needed functions
 from finding_message import find_message
 from hiding_message import hide_message
-from string_operations import string_to_binary, binary_to_string, binaryString_to_string
+from string_operations import string_to_binary, binaryString_to_string
 
 # TODO Should i have this hardcoded or a cli?
 
 # define secret message
-message = "abc"
+message = "test message"
 
 # define image to encode
 image_path = "input_images/cat_image4.bmp"
@@ -44,5 +44,5 @@ if __name__ == '__main__':
     if verification(message, found_message):
         user_message = "The encoding/decoding successfully worked! \nThe original message \"" + message + "\" was successfully hidden in the image \"" + image_path + " \" and created new image \"" + encoded_image + "\" which was then decoded to find the message \"" + found_message + "\"!"
     else:
-        user_message = "The encoding/decoding did not work to produce the same hidden message"
+        user_message = "The encoding/decoding did not work :("
     print(user_message)
