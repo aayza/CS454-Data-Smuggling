@@ -78,10 +78,10 @@ def hide_message(message="Test", filename=default_filename, n_bits_to_modify=1):
             new_image.putpixel((x, y), tuple(rgb_values))  # Convert the list to a tuple
 
     # Save the image
-    output_folder = "output_images/"
+    output_folder = consts.output_folder
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
-    output_filename = output_folder + str(int(time.time())) + "_output_test.bmp"
+    output_filename = os.path.join(output_folder, str(int(time.time())) + "_output_test.bmp")
     new_image.save(output_filename)
     return output_filename
 
