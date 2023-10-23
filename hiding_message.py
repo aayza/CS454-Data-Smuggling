@@ -31,7 +31,6 @@ def transform_image_with_message(flat_pixel_values, str_as_bin, n_bits_to_modify
         if break_outer:
             break
 
-    print(f"Using {n_bits_to_modify} least significant bits, values transformed to:\n", flat_pixel_values)
     return flat_pixel_values
 
 
@@ -48,13 +47,13 @@ def hide_message(message="T", filename=default_filename, n_bits_to_modify=1):
     try:
         header_info, img_size, flat_pixel_values = extract_completely_flatten_bmp_pixels(filename)
     except Exception as e:
+        print(e)
         return str(e)
     except ValueError as e:
         print("Image data extraction error:", str(e), "Possibly not 24 bit bmp")
 
     width = img_size[0]
     height = img_size[1]
-    print("RGB values before", flat_pixel_values)
 
     # validate number of bits to modify and lengths will fit
     if n_bits_to_modify > 4 or n_bits_to_modify < 1:
