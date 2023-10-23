@@ -8,7 +8,7 @@ from string_operations import string_to_binary, binaryString_to_string
 # define secret message
 message = "test message"
 
-# define image to encode
+# define image to encodehas
 image_path = "input_images/cat_image4.bmp"
 
 # define bits to modify
@@ -17,16 +17,16 @@ bits_to_modify = 4
 
 # convert the message into binary and then encode the secret message into the provided image using imported functions
 def encode(input_string, image_file, n_bits_to_modify):
-    string_binary = string_to_binary(input_string)
-    payload_image = hide_message(string_binary, image_file, n_bits_to_modify)
+    # string_binary = string_to_binary(input_string)
+    payload_image = hide_message(input_string, image_file, n_bits_to_modify)
     return payload_image
 
 
 # decode the payload image with the imported function which finds the encoded message binary and then converts this back to a string
 def decode(payload_image):
     finding_message = find_message(payload_image)
-    decoded_message = binaryString_to_string(finding_message)
-    return decoded_message
+    # decoded_message = binaryString_to_string(finding_message)
+    return finding_message
 
 
 # verify that the original message passed through is the same as the decoded message
