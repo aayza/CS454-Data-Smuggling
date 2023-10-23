@@ -3,8 +3,6 @@ from finding_message import find_message
 from hiding_message import hide_message
 from string_operations import string_to_binary, binary_string_to_string
 
-# TODO Should i have this hardcoded or a cli?
-
 # define secret message
 message = "test message"
 
