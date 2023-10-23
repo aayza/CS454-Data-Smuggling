@@ -50,11 +50,10 @@ def find_message(file):
         # Get message as bytes
         message_bytes = binary_to_byte_array(message)
         # Get message as string
-        message_string = binary_to_string(message_bytes)
+        message_string = binaryString_to_string(message_bytes)
         # Check message contains exit string - meaning it is the message we are looking for
         if EXIT_STRING in message_string:
             found_message = message_string.split(EXIT_STRING)[0]
-            print(found_message)
             return found_message
 
     # If no potential_messages contain the exit string
@@ -73,4 +72,4 @@ if __name__ == "__main__":
         for filename in os.listdir(directory):
             path = directory + "/" + filename
             f = os.path.join(directory, filename)
-            find_message(path)
+            print(filename, "Message:", find_message(f))

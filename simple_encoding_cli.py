@@ -9,7 +9,7 @@ def encode_message():
     # Step 1 Enter a string message (don't go nuts, keep it simple)
 
     while True:
-        user_input = input("Type in a string message.")
+        user_input = input("Type in a string message.\n")
         if user_input.strip():
             print(f"Your message is {user_input}")
             break
@@ -19,7 +19,7 @@ def encode_message():
     # Step 2 Select the number of bits to modify per byte
     while True:
         try:
-            n_bits_to_modify = int(input("Please type in a number between 1 and 4 inclusive for the number of bits you wish to modify per byte: "))
+            n_bits_to_modify = int(input("Please type in a number between 1 and 4 inclusive for the number of bits you wish to modify per byte:\n"))
             if 1 <= n_bits_to_modify <= 4:
                 break
             else:
