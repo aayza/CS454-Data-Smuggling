@@ -71,4 +71,5 @@ if __name__ == "__main__":
     else:
         for filename in os.listdir(directory):
             f = os.path.join(directory, filename)
-            find_message(f)
+            print(filename, "Message:", find_message(f))
+
