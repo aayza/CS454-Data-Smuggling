@@ -15,7 +15,8 @@ def string_to_binary(input_string):
     return output_array
 
 
-def binaryString_to_string(binary_string):
+# Added binary whole string function to string in addition to seperated binary chunks to string
+def binary_string_to_string(binary_string):
     binary_string = str(binary_string)
     # Remove any characters that are not '1' or '0'
     binary_string = ''.join(char for char in binary_string if char in '01')

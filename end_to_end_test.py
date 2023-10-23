@@ -1,7 +1,7 @@
 # import needed functions
 from finding_message import find_message
 from hiding_message import hide_message
-from string_operations import string_to_binary, binaryString_to_string
+from string_operations import string_to_binary, binary_string_to_string
 
 # TODO Should i have this hardcoded or a cli?
 
@@ -25,7 +25,7 @@ def encode(input_string, image_file, n_bits_to_modify):
 # decode the payload image with the imported function which finds the encoded message binary and then converts this back to a string
 def decode(payload_image):
     finding_message = find_message(payload_image)
-    # decoded_message = binaryString_to_string(finding_message)
+    # decoded_message = binary_string_to_string(finding_message)
     return finding_message
 
 

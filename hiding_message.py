@@ -38,7 +38,7 @@ def transform_image_with_message(flat_pixel_values, str_as_bin, n_bits_to_modify
 # The main method
 # Input is an encoded string using the string_to_bits() method in string operations, filename and number of LSBs to modify
 # Output is the new filename
-def hide_message(message="Test", filename=default_filename, n_bits_to_modify=1):
+def hide_message(message="T", filename=default_filename, n_bits_to_modify=1):
     payload = f"{message}{consts.EXIT_STRING}"
     payload_list_of_bin = string_to_binary(payload)
 

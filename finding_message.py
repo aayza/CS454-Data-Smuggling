@@ -2,7 +2,7 @@ import os
 
 from consts import EXIT_STRING
 from image_operations import extract_bmp_pixels_as_rgb_bin
-from string_operations import binary_to_string, binary_to_byte_array, binaryString_to_string
+from string_operations import binary_to_string, binary_to_byte_array, binary_string_to_string
 
 
 # Finds the encoded message within file provided as param.
@@ -50,7 +50,7 @@ def find_message(file):
         # Get message as bytes
         message_bytes = binary_to_byte_array(message)
         # Get message as string
-        message_string = binaryString_to_string(message_bytes)
+        message_string = binary_string_to_string(message_bytes)
         # Check message contains exit string - meaning it is the message we are looking for
         if EXIT_STRING in message_string:
             found_message = message_string.split(EXIT_STRING)[0]

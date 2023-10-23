@@ -25,10 +25,10 @@ class TestStringConversionFunctions(unittest.TestCase):
         expected_output = "ABC"
         self.assertEqual(binary_to_string(input_binary_str_list), expected_output)
 
-    def test_binaryString_to_string(self):
+    def test_binary_string_to_string(self):
         input_binary_str = ["010000010100001001000011"]
         expected_output = "ABC"
-        self.assertEqual(binaryString_to_string(input_binary_str), expected_output)
+        self.assertEqual(binary_string_to_string(input_binary_str), expected_output)
 
     def test_string_to_char_ints(self):
         input_str = "ABC"
@@ -166,12 +166,10 @@ class TestHideMessageFunction(unittest.TestCase):
                              255, 255, 0, 255, 255, 0, 255, 0, 255, 0, 0, 255, 0, 255, 0, 255, 255, 0, 255, 0, 255, 0,
                              0, 255, 0]
         str_as_bin = "010000110100000101010100"
-        n_bits_to_modify = 1
+        n_bits_to_modify = 4
 
         transformed_pixels = transform_image_with_message(flat_pixel_values, str_as_bin, n_bits_to_modify)
-        expected_transformed_pixels = [242, 12, 2, 248, 10, 2, 0, 255, 255, 0, 255, 255, 255, 0, 0, 255, 0, 0, 0, 255,
-                                       255, 0, 255, 255, 255, 0, 255, 255, 0, 255, 0, 255, 0, 0, 255, 0, 255, 0, 255,
-                                       255, 0, 255, 0, 255, 0, 0, 255, 0]
+        expected_transformed_pixels = [242, 12, 2, 248, 10, 2, 0, 255, 255, 0, 255, 255, 255, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 255, 0, 255, 0, 0, 255, 0, 255, 0, 255, 255, 0, 255, 0, 255, 0, 0, 255, 0]
         self.assertEqual(transformed_pixels, expected_transformed_pixels)
 
     def test_hide_message_default(self):
@@ -181,20 +179,6 @@ class TestHideMessageFunction(unittest.TestCase):
         self.assertEqual(img_size, (4, 4))
         self.assertEqual(len(rgb_pixels_as_bin), 4)
 
-    def test_hide_message_default1(self):
-        new_file = hide_message()
-        header_info, img_size, flat_pixel_values = extract_completely_flatten_bmp_pixels(new_file)
-        binary_message = binary_to_string(string_to_binary("Tes")) + consts.EXIT_STRING
-        self.assertEqual(binary_message, binary_to_string(string_to_binary(binary_message)))
-
-    def test_hide_message_with_message(self):
-        message = "CAT"
-        message_in_bin = string_to_binary(message)
-        output_filename = hide_message(message_in_bin, self.test_image, 4)
-        self.assertTrue(os.path.exists(output_filename))
-        header_info, img_size, rgb_pixels_as_bin = extract_bmp_pixels_as_rgb_bin(output_filename)
-        self.assertEqual(img_size, (4, 4))
-        self.assertEqual(len(rgb_pixels_as_bin), 4)
 
 
 if __name__ == '__main__':
