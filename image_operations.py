@@ -122,6 +122,7 @@ def extract_and_flatten_bmp_pixels_as_rgb_int_triplets(filename=default_filename
 
             return header, img.size, output
     except Exception as e:
+        print(e)
         return str(e)
 
 
@@ -146,6 +147,7 @@ def extract_completely_flatten_bmp_pixels(filename=default_filename):
 
             return header, img.size, output
     except Exception as e:
+        print(e)
         return str(e)
 
 # Helper method for encoding, image must be a reference to an image copy
@@ -155,6 +157,7 @@ def set_pixel_colour(image, x, y, new_colour):
     try:
         image.putpixel((x, y), new_colour)
     except Exception as e:
+        print(e)
         return str(e)
 
 
